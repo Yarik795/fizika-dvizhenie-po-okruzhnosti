@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Движение по окружности — задачи 4.2, 4.11, 4.16</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --bg: #f7f9fc;
+      --card: #fff;
+      --text: #1a1d26;
+      --muted: #5c6578;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --border: #e2e8f0;
+      --ok: #166534;
+      --ok-bg: #f0fdf4;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 1.75rem 1.25rem 3rem; }
+    header { margin-bottom: 1.5rem; }
+    h1 { font-size: 1.7rem; font-weight: 700; margin: 0 0 0.35rem; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); margin: 0; }
+    nav.toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    nav.toc h2 { font-size: 1rem; margin: 0 0 0.6rem; }
+    nav.toc ul { margin: 0; padding-left: 1.25rem; }
+    nav.toc li { margin: 0.15rem 0; }
+    nav.toc a { color: var(--accent); text-decoration: none; }
+    nav.toc a:hover { text-decoration: underline; }
+    section.card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.35rem 1.5rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin: 0 0 1rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 2px solid var(--accent-soft);
+    }
+    h3 { font-size: 1.05rem; margin: 1.25rem 0 0.45rem; }
+    p { margin: 0 0 0.7rem; }
+    ol.steps, ul { margin: 0.35rem 0 0.8rem; padding-left: 1.3rem; }
+    li { margin: 0.35rem 0; }
+    .formula {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 0.35rem 0.9rem 0.15rem;
+      margin: 0.45rem 0 0.85rem;
+    }
+    .formula .name {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.1rem;
+    }
+    .condition {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 0.85rem 1rem;
+      margin: 0 0 1rem;
+    }
+    .condition p:last-child { margin-bottom: 0; }
+    blockquote.answer {
+      margin: 1rem 0 0;
+      padding: 0.75rem 1rem;
+      background: var(--ok-bg);
+      border-left: 4px solid #22c55e;
+      border-radius: 0 8px 8px 0;
+    }
+    .note {
+      background: var(--accent-soft);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin: 0.8rem 0;
+    }
+    .note p:last-child { margin-bottom: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.4rem 0 0.9rem;
+      font-size: 0.98rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f8fafc; }
+    figure.diagram {
+      margin: 0.6rem 0 1rem;
+      text-align: center;
+    }
+    figure.diagram svg { max-width: 100%; height: auto; }
+    figure.diagram figcaption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+    footer {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: #fff; }
+      .wrap { max-width: none; padding: 0; }
+      section.card, nav.toc { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Равномерное движение по окружности</h1>
+      <p class="subtitle">Задачи 4.2, 4.11 и 4.16. Сначала теория и формулы, затем решение каждой задачи.</p>
+    </header>
+
+    <nav class="toc" aria-label="Содержание">
+      <h2>Содержание</h2>
+      <ul>
+        <li><a href="#theory">Теория и формулы</a></li>
+        <li><a href="#answers">Сводка ответов</a></li>
+        <li><a href="#t42">4.2 — модуль изменения скорости</a></li>
+        <li><a href="#t411">4.11 — ускорение автомобиля</a></li>
+        <li><a href="#t416">4.16 — число оборотов колеса</a></li>
+      </ul>
+    </nav>
+
+    <section class="card" id="theory">
+      <h2>Теория и формулы</h2>
+      <p>Все три задачи про движение, в котором траектория — окружность или дуга окружности, а модуль скорости не меняется. Такое движение называют равномерным движением по окружности. Меняется только направление скорости: вектор скорости в каждой точке направлен по касательной.</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 640 230" width="640" height="230" role="img" aria-label="Окружность, касательная скорость и центростремительное ускорение">
+          <circle cx="115" cy="118" r="72" fill="none" stroke="#2563eb" stroke-width="2"/>
+          <circle cx="115" cy="118" r="3.5" fill="#1a1d26"/>
+          <line x1="115" y1="118" x2="187" y2="118" stroke="#1a1d26" stroke-width="1.6"/>
+          <circle cx="187" cy="118" r="4" fill="#1a1d26"/>
+          <line x1="187" y1="118" x2="187" y2="36" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="187,36 181,48 193,48" fill="#166534"/>
+          <line x1="187" y1="118" x2="142" y2="118" stroke="#b45309" stroke-width="2.4"/>
+          <polygon points="142,118 154,112 154,124" fill="#b45309"/>
+          <text x="100" y="140" font-size="15" font-family="Segoe UI, sans-serif">O</text>
+          <text x="142" y="156" font-size="15" font-family="Segoe UI, sans-serif">R</text>
+          <text x="196" y="72" font-size="15" font-family="Segoe UI, sans-serif" fill="#166534">v</text>
+          <text x="148" y="104" font-size="15" font-family="Segoe UI, sans-serif" fill="#b45309">aₙ</text>
+
+          <line x1="340" y1="178" x2="530" y2="178" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="530,178 518,172 518,184" fill="#166534"/>
+          <line x1="340" y1="178" x2="435" y2="28" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="435,28 422,36 438,40" fill="#166534"/>
+          <line x1="530" y1="178" x2="435" y2="28" stroke="#b45309" stroke-width="2.2" stroke-dasharray="5 3"/>
+          <path d="M388 178 A 48 48 0 0 0 364 154" fill="none" stroke="#64748b" stroke-width="1.4"/>
+          <text x="392" y="166" font-size="14" font-family="Segoe UI, sans-serif" fill="#64748b">α</text>
+          <text x="420" y="200" font-size="14" font-family="Segoe UI, sans-serif" fill="#166534">v₁</text>
+          <text x="400" y="24" font-size="14" font-family="Segoe UI, sans-serif" fill="#166534">v₂</text>
+          <text x="498" y="100" font-size="14" font-family="Segoe UI, sans-serif" fill="#b45309">Δv</text>
+        </svg>
+        <figcaption>Слева: скорость по касательной, нормальное ускорение к центру. Справа: при повороте на угол α вектор скорости поворачивается на тот же угол, замыкающая сторона — изменение скорости.</figcaption>
+      </figure>
+
+      <h3>Угол, период, частота, число оборотов</h3>
+      <p>Положение тела на окружности задают углом поворота \(\varphi\). В формулах угол берут в радианах: полный оборот равен \(2\pi\) радиан, то есть \(360^\circ\). Угловая скорость \(\omega\) показывает, на какой угол поворачивается радиус за единицу времени. Период \(T\) — время одного оборота, частота \(\nu\) — число оборотов в секунду.</p>
+      <div class="formula">
+        <span class="name">Угловые величины</span>
+        \[
+          \omega = \frac{\varphi}{t}, \qquad
+          \varphi = \omega t, \qquad
+          \omega = \frac{2\pi}{T} = 2\pi\nu, \qquad
+          \nu = \frac{1}{T}.
+        \]
+        \[
+          N = \frac{t}{T} = \nu t = \frac{\varphi}{2\pi} = \frac{\omega t}{2\pi}.
+        \]
+      </div>
+      <p>\(N\) — число оборотов за время \(t\). Один оборот соответствует углу \(2\pi\), поэтому число оборотов равно углу поворота, делённому на \(2\pi\).</p>
+
+      <h3>Линейная скорость</h3>
+      <p>Линейная скорость \(v\) — это обычная скорость точки вдоль траектории. Она связана с угловой скоростью и радиусом:</p>
+      <div class="formula">
+        <span class="name">Связь линейной и угловой скорости</span>
+        \[
+          v = \omega R = \frac{2\pi R}{T} = 2\pi\nu R.
+        \]
+      </div>
+      <p>У твёрдого тела, которое вращается вокруг неподвижной оси, угловая скорость всех точек одна и та же. Линейная скорость пропорциональна расстоянию до оси: чем дальше точка от центра, тем быстрее она движется.</p>
+      <div class="formula">
+        <span class="name">Две точки одного вращающегося тела</span>
+        \[
+          \frac{v_1}{v_2} = \frac{R_1}{R_2}, \qquad
+          v_1 - v_2 = \omega\,(R_1 - R_2), \qquad
+          \omega = \frac{v_1 - v_2}{R_1 - R_2}.
+        \]
+      </div>
+      <p>Вторая запись удобна, когда известны две скорости и разность радиусов, а сами радиусы ещё не найдены. Длину в этой формуле подставляют в тех же единицах, что и в скорости: если скорость в м/с, радиус переводят в метры.</p>
+
+      <h3>Ускорение</h3>
+      <p>Ускорение раскладывают на два направления. Касательное ускорение \(a_\tau\) меняет модуль скорости и направлено по касательной. Нормальное, или центростремительное, ускорение \(a_n\) меняет направление скорости и направлено по радиусу к центру окружности.</p>
+      <div class="formula">
+        <span class="name">Касательное и нормальное ускорения</span>
+        \[
+          a_\tau = \frac{\Delta v}{\Delta t}, \qquad
+          a_n = \frac{v^2}{R} = \omega^2 R, \qquad
+          a = \sqrt{a_n^2 + a_\tau^2}.
+        \]
+      </div>
+      <p>При равномерном движении по окружности модуль скорости постоянен, поэтому \(a_\tau = 0\). Полное ускорение совпадает с нормальным и направлено к центру:</p>
+      \[
+        a = a_n = \frac{v^2}{R} = \omega^2 R.
+      \]
+      <p>Нулевым это ускорение не бывает: направление скорости непрерывно меняется, и для этого нужна сила, направленная к центру.</p>
+
+      <h3>Модуль изменения скорости</h3>
+      <p>Изменение скорости — вектор \(\Delta\vec{v} = \vec{v}_2 - \vec{v}_1\). В задаче спрашивают его модуль \(|\Delta\vec{v}|\).</p>
+      <p>Пока тело проходит дугу с центральным углом \(\alpha\), радиус поворачивается на \(\alpha\). Скорость перпендикулярна радиусу, поэтому вектор скорости тоже поворачивается на угол \(\alpha\). Модуль при этом остаётся равен \(v\). Два вектора равной длины с углом \(\alpha\) между ними образуют равнобедренный треугольник. По теореме косинусов</p>
+      \[
+        |\Delta\vec{v}|^2 = v^2 + v^2 - 2v\cdot v\cos\alpha = 2v^2(1 - \cos\alpha).
+      \]
+      <p>Тригонометрическая формула \(1 - \cos\alpha = 2\sin^2(\alpha/2)\) приводит это выражение к короткому виду:</p>
+      <div class="formula">
+        <span class="name">Модуль изменения скорости</span>
+        \[
+          |\Delta\vec{v}| = 2v\left|\sin\frac{\alpha}{2}\right|.
+        \]
+      </div>
+      <p>Угол в синусе можно оставлять в градусах, если брать табличное значение синуса. От времени этот модуль не зависит: важно, на какой угол повернулась скорость, а не за сколько секунд это произошло.</p>
+      <table>
+        <thead>
+          <tr><th>Угол поворота \(\alpha\)</th><th>\(\alpha/2\)</th><th>\(|\Delta\vec{v}|\)</th><th>Смысл</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>\(60^\circ\)</td><td>\(30^\circ\)</td><td>\(v\)</td><td>\(\sin 30^\circ = 1/2\)</td></tr>
+          <tr><td>\(90^\circ\)</td><td>\(45^\circ\)</td><td>\(v\sqrt{2}\)</td><td>\(\sin 45^\circ = \sqrt{2}/2\)</td></tr>
+          <tr><td>\(180^\circ\)</td><td>\(90^\circ\)</td><td>\(2v\)</td><td>скорость сменилась на противоположную</td></tr>
+          <tr><td>\(360^\circ\)</td><td>\(180^\circ\)</td><td>\(0\)</td><td>вектор скорости вернулся к начальному</td></tr>
+        </tbody>
+      </table>
+      <p>Нужные значения синуса: \(\sin 0^\circ = 0\), \(\sin 30^\circ = 1/2\), \(\sin 90^\circ = 1\), \(\sin 180^\circ = 0\).</p>
+
+      <h3>Какие формулы к какой задаче</h3>
+      <table>
+        <thead>
+          <tr><th>Задача</th><th>Что дано</th><th>Главная формула</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>4.2</td><td>постоянный модуль \(v\), угол поворота</td><td>\(|\Delta\vec{v}| = 2v\sin(\alpha/2)\)</td></tr>
+          <tr><td>4.11</td><td>дуга радиуса \(R\), постоянный модуль \(v\)</td><td>\(a = v^2/R\)</td></tr>
+          <tr><td>4.16</td><td>две линейные скорости и разность радиусов</td><td>\(\omega = (v_1 - v_2)/(R_1 - R_2)\), затем \(N = \omega t/(2\pi)\)</td></tr>
+        </tbody>
+      </table>
+      <div class="note">
+        <p>В числовом ответе задачи 4.16 берём \(\pi = 3{,}14\), то есть \(2\pi = 6{,}28\). При таком значении число оборотов получается целым, и числа в условии подобраны именно под него.</p>
+      </div>
+    </section>
+
+    <section class="card" id="answers">
+      <h2>Сводка ответов</h2>
+      <table>
+        <thead>
+          <tr><th>Задача</th><th>Искомое</th><th>Ответ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>4.2</td><td>\(|\Delta\vec{v}|\) при \(180^\circ\) и при \(360^\circ\)</td><td>\(20\) м/с и \(0\)</td></tr>
+          <tr><td>4.11</td><td>ускорение автомобиля</td><td>\(1\) м/с², к центру окружности</td></tr>
+          <tr><td>4.16</td><td>число оборотов за \(2\) мин \(37\) с</td><td>\(1250\)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="t42">
+      <h2>4.2. Модуль изменения скорости</h2>
+      <div class="condition">
+        <p><strong>Условие 4.1, из которого берутся данные.</strong> Двигаясь по окружности с постоянной по модулю скоростью \(v = 10\) м/с, тело переместилось из точки 1 в точку 2 по дуге, центральный угол которой \(\alpha = 60^\circ\). Перемещение произошло за \(\tau = 5\) с.</p>
+        <p><strong>Условие 4.2.</strong> В задаче 4.1 найдите \(|\Delta\vec{v}|\) при перемещении тела по окружности на угол: 1) \(\alpha_1 = 180^\circ\); 2) \(\alpha_2 = 360^\circ\).</p>
+      </div>
+      <p><strong>Дано:</strong> \(v = 10\) м/с, модуль скорости постоянен; \(\alpha_1 = 180^\circ\), \(\alpha_2 = 360^\circ\). <strong>Найти:</strong> \(|\Delta\vec{v}|\) в обоих случаях.</p>
+      <p>Время \(\tau = 5\) с и угол \(60^\circ\) из задачи 4.1 здесь не нужны. Модуль изменения скорости зависит от модуля \(v\) и от угла между начальным и конечным векторами скорости. Этот угол равен углу поворота радиуса.</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 640 210" width="640" height="210" role="img" aria-label="Векторы скорости при повороте на 180 и на 360 градусов">
+          <text x="70" y="24" font-size="15" font-family="Segoe UI, sans-serif" fill="#1a1d26">1) поворот на 180°</text>
+          <line x1="70" y1="110" x2="210" y2="110" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="210,110 198,104 198,116" fill="#166534"/>
+          <text x="120" y="102" font-size="14" font-family="Segoe UI, sans-serif" fill="#166534">v = 10 м/с</text>
+          <line x1="210" y1="148" x2="70" y2="148" stroke="#2563eb" stroke-width="2.2"/>
+          <polygon points="70,148 82,142 82,154" fill="#2563eb"/>
+          <text x="100" y="168" font-size="14" font-family="Segoe UI, sans-serif" fill="#2563eb">v = 10 м/с</text>
+          <text x="70" y="198" font-size="14" font-family="Segoe UI, sans-serif">|Δv| = 20 м/с</text>
+
+          <line x1="330" y1="16" x2="330" y2="200" stroke="#e2e8f0" stroke-width="1.5"/>
+          <text x="390" y="24" font-size="15" font-family="Segoe UI, sans-serif" fill="#1a1d26">2) поворот на 360°</text>
+          <line x1="400" y1="120" x2="560" y2="120" stroke="#166534" stroke-width="6" stroke-linecap="round" opacity="0.25"/>
+          <line x1="400" y1="120" x2="560" y2="120" stroke="#2563eb" stroke-width="2.2"/>
+          <polygon points="560,120 548,114 548,126" fill="#2563eb"/>
+          <text x="430" y="108" font-size="14" font-family="Segoe UI, sans-serif" fill="#2563eb">v₂ совпал с v₁</text>
+          <text x="430" y="168" font-size="14" font-family="Segoe UI, sans-serif">|Δv| = 0</text>
+        </svg>
+        <figcaption>После половины оборота скорость смотрит в противоположную сторону. После полного оборота вектор скорости такой же, как в начале.</figcaption>
+      </figure>
+
+      <ol class="steps">
+        <li>Записываем формулу модуля изменения скорости при постоянном модуле \(v\):
+          \[
+            |\Delta\vec{v}| = 2v\sin\frac{\alpha}{2}.
+          \]
+          Скорость \(v = 10\) м/с одна и та же в обоих пунктах.
+        </li>
+        <li>Поворот на \(\alpha_1 = 180^\circ\). Половина угла равна \(90^\circ\), а \(\sin 90^\circ = 1\):
+          \[
+            |\Delta\vec{v}|_1 = 2\cdot 10\cdot\sin 90^\circ = 20\cdot 1 = 20\ \text{м/с}.
+          \]
+          Тот же результат виден без формулы. Конечная скорость равна начальной по модулю и противоположна по направлению. Если направить начальную скорость вдоль оси, \(v_{1x} = 10\) м/с и \(v_{2x} = -10\) м/с, тогда
+          \[
+            \Delta v_x = -10 - 10 = -20\ \text{м/с}, \qquad |\Delta\vec{v}| = 20\ \text{м/с}.
+          \]
+          Скалярная скорость при этом не изменилась: изменилось направление, и модуль векторной разности равен \(2v\).
+        </li>
+        <li>Поворот на \(\alpha_2 = 360^\circ\). Половина угла равна \(180^\circ\), а \(\sin 180^\circ = 0\):
+          \[
+            |\Delta\vec{v}|_2 = 2\cdot 10\cdot\sin 180^\circ = 20\cdot 0 = 0.
+          \]
+          После полного оборота тело вернулось к прежнему направлению движения. Векторы \(\vec{v}_2\) и \(\vec{v}_1\) совпадают, их разность — нулевой вектор.
+        </li>
+        <li>Проверка по соседнему углу из задачи 4.1. При \(\alpha = 60^\circ\) та же формула даёт
+          \[
+            |\Delta\vec{v}| = 2\cdot 10\cdot\sin 30^\circ = 20\cdot\frac{1}{2} = 10\ \text{м/с}.
+          \]
+          Ряд получается согласованный: \(60^\circ \to 10\) м/с, \(180^\circ \to 20\) м/с, \(360^\circ \to 0\).
+        </li>
+      </ol>
+      <blockquote class="answer"><strong>Ответ:</strong> 1) \(|\Delta\vec{v}| = 20\) м/с; 2) \(|\Delta\vec{v}| = 0\).</blockquote>
+    </section>
+
+    <section class="card" id="t411">
+      <h2>4.11. Ускорение автомобиля</h2>
+      <div class="condition">
+        <p>Автомобиль движется по дуге окружности радиусом \(100\) м с постоянной по модулю скоростью \(10\) м/с. Найдите ускорение автомобиля.</p>
+      </div>
+      <p><strong>Дано:</strong> \(R = 100\) м, \(v = 10\) м/с, модуль скорости постоянен. <strong>Найти:</strong> ускорение \(a\).</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 520 200" width="520" height="200" role="img" aria-label="Автомобиль на дуге радиуса 100 м">
+          <path d="M40 170 A 200 200 0 0 1 480 170" fill="none" stroke="#2563eb" stroke-width="2"/>
+          <line x1="260" y1="170" x2="260" y2="36" stroke="#94a3b8" stroke-dasharray="4 3"/>
+          <circle cx="260" cy="170" r="3.5" fill="#1a1d26"/>
+          <circle cx="260" cy="36" r="5" fill="#1a1d26"/>
+          <line x1="260" y1="36" x2="330" y2="36" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="330,36 318,30 318,42" fill="#166534"/>
+          <line x1="260" y1="36" x2="260" y2="78" stroke="#b45309" stroke-width="2.2"/>
+          <polygon points="260,78 254,66 266,66" fill="#b45309"/>
+          <text x="248" y="188" font-size="14" font-family="Segoe UI, sans-serif">O</text>
+          <text x="268" y="110" font-size="14" font-family="Segoe UI, sans-serif" fill="#64748b">R = 100 м</text>
+          <text x="300" y="28" font-size="14" font-family="Segoe UI, sans-serif" fill="#166534">v = 10 м/с</text>
+          <text x="268" y="70" font-size="14" font-family="Segoe UI, sans-serif" fill="#b45309">a = 1 м/с²</text>
+        </svg>
+        <figcaption>Скорость направлена по касательной к дуге, ускорение — по радиусу к центру.</figcaption>
+      </figure>
+
+      <ol class="steps">
+        <li>Модуль скорости не меняется, поэтому касательное ускорение равно нулю:
+          \[
+            a_\tau = 0.
+          \]
+          Автомобиль всё же имеет ускорение: меняется направление скорости.
+        </li>
+        <li>Это ускорение нормальное. Оно направлено к центру окружности, по которой идёт дуга:
+          \[
+            a = a_n = \frac{v^2}{R}.
+          \]
+        </li>
+        <li>Подставляем числа:
+          \[
+            a = \frac{10^2}{100} = \frac{100}{100} = 1\ \text{м/с}^2.
+          \]
+        </li>
+        <li>Проверка через угловую скорость. \(\omega = v/R = 10/100 = 0{,}1\) рад/с, тогда
+          \[
+            a = \omega^2 R = (0{,}1)^2\cdot 100 = 0{,}01\cdot 100 = 1\ \text{м/с}^2.
+          \]
+          Оба способа дают одно и то же. Вектор ускорения перпендикулярен скорости и смотрит в центр дуги.
+        </li>
+      </ol>
+      <blockquote class="answer"><strong>Ответ:</strong> \(a = 1\) м/с², ускорение направлено к центру окружности.</blockquote>
+    </section>
+
+    <section class="card" id="t416">
+      <h2>4.16. Число оборотов колеса</h2>
+      <div class="condition">
+        <p>Линейная скорость точек на окружности колеса \(25\) м/с, а точек, находящихся на \(30\) см ближе к центру, — \(10\) м/с. Сколько оборотов сделает колесо за \(2\) мин \(37\) с?</p>
+      </div>
+      <p><strong>Дано:</strong> \(v_1 = 25\) м/с на ободе радиуса \(R\); \(v_2 = 10\) м/с на расстоянии \(l = 30\) см ближе к центру; \(t = 2\) мин \(37\) с. <strong>Найти:</strong> число оборотов \(N\).</p>
+
+      <figure class="diagram">
+        <svg viewBox="0 0 420 250" width="420" height="250" role="img" aria-label="Колесо: обод и точки на 30 см ближе к центру">
+          <circle cx="155" cy="128" r="96" fill="none" stroke="#2563eb" stroke-width="2"/>
+          <circle cx="155" cy="128" r="38" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="5 3"/>
+          <circle cx="155" cy="128" r="3.5" fill="#1a1d26"/>
+          <line x1="155" y1="128" x2="251" y2="128" stroke="#1a1d26" stroke-width="1.5"/>
+          <circle cx="193" cy="128" r="4" fill="#2563eb"/>
+          <circle cx="251" cy="128" r="4.5" fill="#1a1d26"/>
+          <line x1="251" y1="128" x2="251" y2="34" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="251,34 245,46 257,46" fill="#166534"/>
+          <text x="260" y="74" font-size="14" font-family="Segoe UI, sans-serif" fill="#166534">25 м/с</text>
+          <line x1="193" y1="128" x2="193" y2="90" stroke="#166534" stroke-width="2.2"/>
+          <polygon points="193,90 188,100 198,100" fill="#166534"/>
+          <text x="128" y="84" font-size="13" font-family="Segoe UI, sans-serif" fill="#166534">10 м/с</text>
+          <line x1="193" y1="156" x2="251" y2="156" stroke="#64748b" stroke-width="1.3"/>
+          <line x1="193" y1="150" x2="193" y2="162" stroke="#64748b" stroke-width="1.3"/>
+          <line x1="251" y1="150" x2="251" y2="162" stroke="#64748b" stroke-width="1.3"/>
+          <text x="202" y="176" font-size="13" font-family="Segoe UI, sans-serif" fill="#64748b">30 см</text>
+          <text x="140" y="148" font-size="14" font-family="Segoe UI, sans-serif">O</text>
+          <text x="166" y="118" font-size="13" font-family="Segoe UI, sans-serif" fill="#64748b">r</text>
+          <text x="214" y="118" font-size="13" font-family="Segoe UI, sans-serif">R</text>
+        </svg>
+        <figcaption>Обод и внутренние точки вращаются с одной угловой скоростью. Стрелки скорости пропорциональны расстоянию до центра: 25 и 10 м/с.</figcaption>
+      </figure>
+
+      <ol class="steps">
+        <li>Переводим данные в СИ. Разность радиусов \(l = 30\) см \(= 0{,}30\) м. Время
+          \[
+            t = 2\cdot 60 + 37 = 157\ \text{с}.
+          \]
+          Радиус обода \(R\) пока неизвестен. Радиус внутренних точек равен \(R - 0{,}30\) м.
+        </li>
+        <li>Колесо — твёрдое тело, поэтому угловая скорость обода и внутренних точек одинакова:
+          \[
+            v_1 = \omega R = 25, \qquad v_2 = \omega(R - 0{,}30) = 10.
+          \]
+          Вычитаем второе равенство из первого. Радиус \(R\) сокращается:
+          \[
+            v_1 - v_2 = \omega\cdot 0{,}30,
+          \]
+          \[
+            \omega = \frac{25 - 10}{0{,}30} = \frac{15}{0{,}30} = 50\ \text{рад/с}.
+          \]
+        </li>
+        <li>Проверяем радиусы. Из \(v_1 = \omega R\)
+          \[
+            R = \frac{v_1}{\omega} = \frac{25}{50} = 0{,}50\ \text{м} = 50\ \text{см}.
+          \]
+          Внутренние точки лежат на
+          \[
+            r = 0{,}50 - 0{,}30 = 0{,}20\ \text{м},
+          \]
+          и их скорость \(v_2 = \omega r = 50\cdot 0{,}20 = 10\) м/с. С условием совпадает.
+        </li>
+        <li>Та же угловая скорость получается, если скорости взять в см/с: \(2500\) и \(1000\) см/с. Разность \(1500\) см/с, делим на \(30\) см:
+          \[
+            \omega = \frac{1500}{30} = 50\ \text{рад/с}.
+          \]
+          Единицы длины сокращаются, ответ не зависит от того, метры это или сантиметры, лишь бы скорость и расстояние были в одной мере длины.
+        </li>
+        <li>За время \(t\) колесо поворачивается на угол
+          \[
+            \varphi = \omega t = 50\cdot 157 = 7850\ \text{рад}.
+          \]
+          Число оборотов — это угол, делённый на угол одного оборота \(2\pi\):
+          \[
+            N = \frac{\varphi}{2\pi} = \frac{\omega t}{2\pi} = \frac{7850}{2\pi} = \frac{3925}{\pi}.
+          \]
+        </li>
+        <li>Подставляем \(\pi = 3{,}14\):
+          \[
+            2\pi = 6{,}28, \qquad N = \frac{7850}{6{,}28} = 1250.
+          \]
+          Проверка умножением: \(6{,}28\cdot 1250 = 6280 + 1570 = 7850\). Деление точное.
+        </li>
+      </ol>
+      <div class="note">
+        <p>Точная запись без округления числа \(\pi\) — это \(N = 3925/\pi \approx 1249{,}4\). В условии время специально равно \(2\) мин \(37\) с, чтобы при школьном значении \(\pi = 3{,}14\) получилось целое число оборотов. В ответ идёт это целое значение.</p>
+      </div>
+      <blockquote class="answer"><strong>Ответ:</strong> \(N = 1250\) оборотов.</blockquote>
+    </section>
+
+    <footer>Кинематика, равномерное движение по окружности. Задачи 4.2, 4.11, 4.16.</footer>
+  </div>
+</body>
+</html>
